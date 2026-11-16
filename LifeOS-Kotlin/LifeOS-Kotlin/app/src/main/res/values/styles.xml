@@ -1,0 +1,1 @@
+<resources><style name="Theme.LifeOS" parent="android:style/Theme.Material.NoActionBar"><item name="android:fontFamily">sans</item><item name="android:windowLightStatusBar">false</item><item name="android:statusBarColor">#10131B</item><item name="android:navigationBarColor">#111722</item></style></resources>

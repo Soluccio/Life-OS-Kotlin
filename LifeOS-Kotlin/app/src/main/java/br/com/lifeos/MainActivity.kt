@@ -142,7 +142,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-}
 @Composable fun AppHeader(xp: Int) {
     Row(Modifier.fillMaxWidth().padding(top = 14.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
         Box(Modifier.size(44.dp).shadow(12.dp, RoundedCornerShape(14.dp)).background(Brush.linearGradient(listOf(Cyan, Blue)), RoundedCornerShape(14.dp)), contentAlignment = Alignment.Center) { Text("⚡", fontSize = 22.sp) }
@@ -151,10 +150,35 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable fun PremiumNav(selected: Screen, onSelect: (Screen) -> Unit) {
-    NavigationBar(containerColor = Color(0xF20B101A), tonalElevation = 0.dp) { Screen.entries.forEach { s ->
-        NavigationBarItem(selected = selected == s, onClick = { onSelect(s) }, icon = { Icon(s.icon, null, Modifier.size(21.dp)) }, label = { Text(s.label, fontSize = 9.sp, fontWeight = if (selected == s) FontWeight.Bold else FontWeight.Normal) }, colors = NavigationBarItemDefaults.colors(selectedIconColor = Cyan, selectedTextColor = Text, indicatorColor = Cyan.copy(.12f), unselectedIconColor = Muted, unselectedTextColor = Muted))
-    } }
+@Composable
+fun PremiumNav(selected: Screen, onSelect: (Screen) -> Unit) {
+    NavigationBar(
+        containerColor = Color(0xF20B101A),
+        tonalElevation = 0.dp
+    ) {
+        Screen.entries.forEach { screen ->
+            NavigationBarItem(
+                selected = selected == screen,
+                onClick = { onSelect(screen) },
+                icon = { Icon(screen.icon, screen.label, Modifier.size(21.dp)) },
+                label = {
+                    Text(
+                        screen.label,
+                        fontSize = 9.sp,
+                        fontWeight = if (selected == screen) FontWeight.Bold else FontWeight.Normal
+                    )
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Cyan,
+                    selectedTextColor = Text,
+                    indicatorColor = Cyan.copy(alpha = 0.12f),
+                    unselectedIconColor = Muted,
+                    unselectedTextColor = Muted
+                )
+            )
+        }
+    }
+}
 
 @Composable fun GlassCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) = Card(modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), colors = CardDefaults.cardColors(Surface.copy(.92f)), border = androidx.compose.foundation.BorderStroke(1.dp, Border.copy(.8f))) { Column(Modifier.padding(17.dp), content = content) }
 @Composable fun SectionTitle(eyebrow: String, title: String, action: String? = null) { Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Bottom) { Column(Modifier.weight(1f)) { Text(eyebrow.uppercase(), color = Cyan, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.3.sp); Text(title, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold) }; if (action != null) Text(action, color = Muted, fontSize = 11.sp) } }
